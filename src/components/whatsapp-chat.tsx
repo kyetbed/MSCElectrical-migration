@@ -48,6 +48,22 @@ const bubbleMotion = {
 
 const BOT_REPLY_DELAY_MS = 480;
 
+const MOBILE_MQ = "(max-width: 639px)";
+
+function useMobileLayout() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_MQ);
+    const sync = () => setIsMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  return isMobile;
+}
+
 export function WhatsAppChat() {
   const panelId = useId();
   const inputId = useId();
@@ -61,6 +77,7 @@ export function WhatsAppChat() {
   );
   const scrollRef = useRef<HTMLDivElement>(null);
   const replyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMobile = useMobileLayout();
 
   const node = chatNodes[nodeId] ?? chatNodes.start;
 
@@ -97,6 +114,19 @@ export function WhatsAppChat() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
+
+  useEffect(() => {
+    if (!open || !isMobile) return;
+    const { style } = document.body;
+    const previousOverflow = style.overflow;
+    const previousTouchAction = style.touchAction;
+    style.overflow = "hidden";
+    style.touchAction = "none";
+    return () => {
+      style.overflow = previousOverflow;
+      style.touchAction = previousTouchAction;
+    };
+  }, [open, isMobile]);
 
   function appendBotNode(nextNodeId: string) {
     if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
@@ -148,7 +178,7 @@ export function WhatsAppChat() {
   const whatsappHref = buildWhatsAppUrl(whatsappContext);
 
   return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="pointer-events-none fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 max-sm:bottom-[max(1.25rem,env(safe-area-inset-bottom))] sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -160,11 +190,11 @@ export function WhatsAppChat() {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            variants={panelMotion}
-            transition={{ duration: 0.28, ease: motionEase }}
-            className="pointer-events-auto flex h-[min(28rem,calc(100dvh-5.5rem))] w-[min(100vw-2.5rem,22rem)] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.18)]"
+            variants={isMobile ? { hidden: { opacity: 0 }, visible: { opacity: 1 } } : panelMotion}
+            transition={{ duration: isMobile ? 0.2 : 0.28, ease: motionEase }}
+            className="pointer-events-auto flex origin-bottom-right flex-col overflow-hidden bg-white max-sm:fixed max-sm:inset-0 max-sm:z-[100] max-sm:h-dvh max-sm:w-full max-sm:rounded-none max-sm:border-0 max-sm:shadow-none sm:h-[min(28rem,calc(100dvh-5.5rem))] sm:w-[min(100vw-2.5rem,22rem)] sm:rounded-2xl sm:border sm:border-black/10 sm:shadow-[0_8px_30px_rgba(0,0,0,0.18)]"
           >
-            <header className="flex shrink-0 items-center gap-3 bg-[#075E54] px-4 py-3 text-white">
+            <header className="flex shrink-0 items-center gap-3 bg-[#075E54] px-4 py-3 text-white max-sm:pt-[max(0.75rem,env(safe-area-inset-top))]">
               <div className="flex size-10 items-center justify-center rounded-full bg-white/15">
                 <WhatsAppIcon className="size-6" />
               </div>
@@ -244,13 +274,13 @@ export function WhatsAppChat() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.15 }}
-                className="flex max-h-28 shrink-0 flex-wrap gap-2 overflow-y-auto border-t border-[#1243B4]/10 bg-white px-3 py-2"
+                className="flex max-h-32 shrink-0 flex-wrap gap-2 overflow-y-auto border-t border-[#1243B4]/10 bg-white px-3 py-2 sm:max-h-28"
               >
                 {node.options.map((option) => (
                   <button
                     key={`${node.id}-${option.id}`}
                     type="button"
-                    className="rounded-full border border-[#1243B4]/25 bg-[#1243B4]/5 px-3 py-1.5 text-left text-xs font-medium text-[#1243B4] hover:bg-[#1243B4]/10 active:scale-[0.98]"
+                    className="min-h-11 rounded-full border border-[#1243B4]/25 bg-[#1243B4]/5 px-3.5 py-2 text-left text-sm font-medium text-[#1243B4] hover:bg-[#1243B4]/10 active:scale-[0.98] sm:min-h-0 sm:py-1.5 sm:text-xs"
                     onClick={() => onOptionClick(option)}
                   >
                     {option.label}
@@ -261,7 +291,7 @@ export function WhatsAppChat() {
 
             <form
               onSubmit={onSendText}
-              className="flex shrink-0 items-center gap-2 border-t border-black/5 bg-white px-3 py-2"
+              className="flex shrink-0 items-center gap-2 border-t border-black/5 bg-white px-3 py-2 max-sm:pb-[max(0.5rem,env(safe-area-inset-bottom))]"
             >
               <label htmlFor={inputId} className="sr-only">
                 Type a message
@@ -269,10 +299,12 @@ export function WhatsAppChat() {
               <input
                 id={inputId}
                 type="text"
+                inputMode="text"
+                enterKeyHint="send"
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
                 placeholder="Type a message…"
-                className="min-w-0 flex-1 rounded-full border border-black/10 bg-[#F6F6F6] px-3 py-2 text-sm outline-none focus:border-[#1243B4]/40"
+                className="min-w-0 flex-1 rounded-full border border-black/10 bg-[#F6F6F6] px-3 py-2.5 text-base outline-none focus:border-[#1243B4]/40 sm:py-2 sm:text-sm"
                 autoComplete="off"
               />
               <motion.button
@@ -290,7 +322,7 @@ export function WhatsAppChat() {
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex shrink-0 items-center justify-center gap-2 bg-[#25D366] px-4 py-3 text-sm font-semibold text-white hover:bg-[#20BD5A]"
+              className="flex shrink-0 items-center justify-center gap-2 bg-[#25D366] px-4 py-3.5 text-base font-semibold text-white hover:bg-[#20BD5A] sm:py-3 sm:text-sm max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))]"
             >
               <WhatsAppIcon className="size-5" />
               Continue on WhatsApp
@@ -305,7 +337,7 @@ export function WhatsAppChat() {
         aria-controls={panelId}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.94 }}
-        className="pointer-events-auto inline-flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_14px_rgba(0,0,0,0.25)] hover:bg-[#20BD5A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+        className={`pointer-events-auto inline-flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_14px_rgba(0,0,0,0.25)] hover:bg-[#20BD5A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] ${open ? "max-sm:pointer-events-none max-sm:opacity-0" : ""}`}
         aria-label={open ? "Close chat assistant" : "Open chat assistant"}
         onClick={() => setOpen((current) => !current)}
       >

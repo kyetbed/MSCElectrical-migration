@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Raleway } from "next/font/google";
 
 import "@/app/globals.css";
@@ -14,6 +14,12 @@ const raleway = Raleway({
 
 const description =
   "MSC Electrical is a NAPIT-approved electrician in Nottingham for domestic, commercial, maintenance and testing work. Free, no-obligation quotations. Call 0115 8700442.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "resizes-content",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
