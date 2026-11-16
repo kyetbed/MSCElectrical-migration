@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CopyrightYear } from "@/components/copyright-year";
+import { profileLinks } from "@/data/nap";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { Reviews } from "@/components/reviews";
@@ -20,6 +21,14 @@ const services = [
   { label: "Maintenance", href: "/electrical-maintenance" },
   { label: "Testing", href: "/testing-and-inspecting" },
 ] as const;
+
+const profileLabels: { label: string; href: string }[] = [
+  { label: "Google reviews", href: profileLinks.google },
+  { label: "TrustATrader", href: profileLinks.trustATrader },
+  { label: "Facebook", href: profileLinks.facebook },
+  { label: "Instagram", href: profileLinks.instagram },
+  { label: "X (Twitter)", href: profileLinks.twitter },
+];
 
 const specialistServices = [
   { label: "EICR & landlord certificates", href: "/eicr-landlord-certificates-nottingham" },
@@ -124,6 +133,21 @@ export function Footer({
                   info@mscelectrical.co.uk
                 </a>
               </p>
+              <p className="mt-5 text-sm font-bold">Reviews &amp; social</p>
+              <ul className="mt-2 space-y-2 text-sm">
+                {profileLabels.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-white/50 underline-offset-2 hover:decoration-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div>
               <h2 className="text-base font-bold">Our Services</h2>

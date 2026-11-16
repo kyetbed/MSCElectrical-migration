@@ -4,7 +4,7 @@ import { Raleway } from "next/font/google";
 import "@/app/globals.css";
 import { WhatsAppChat } from "@/components/whatsapp-chat";
 import { locations } from "@/data/locations";
-import { business, siteUrl } from "@/data/nap";
+import { business, profileLinks, siteUrl } from "@/data/nap";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -91,8 +91,10 @@ const jsonLd = {
   priceRange: business.priceRange,
   address: {
     "@type": "PostalAddress",
+    streetAddress: business.address.streetAddress,
     addressLocality: business.address.locality,
     addressRegion: business.address.region,
+    postalCode: business.address.postalCode,
     addressCountry: business.address.country,
   },
   areaServed: [
@@ -107,10 +109,11 @@ const jsonLd = {
     worstRating: "1",
   },
   sameAs: [
-    "https://www.trustatrader.com/traders/msc-electrical-electricians-nottingham",
-    "https://www.facebook.com/MSCElectricalUK",
-    "https://www.instagram.com/msc.electrical/",
-    "https://twitter.com/MSCElectrical",
+    profileLinks.google,
+    profileLinks.trustATrader,
+    profileLinks.facebook,
+    profileLinks.instagram,
+    profileLinks.twitter,
   ],
 };
 

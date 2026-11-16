@@ -1,13 +1,13 @@
-export const trustATraderUrl =
-  "https://www.trustatrader.com/traders/msc-electrical-electricians-nottingham";
+import { googleBusinessProfileUrl, profileLinks } from "@/data/nap";
+
+export const trustATraderUrl = profileLinks.trustATrader;
 
 export const trustATraderRating = {
   score: "4.96",
   count: 88,
 };
 
-export const googleMapsUrl =
-  "https://www.google.com/maps/search/?api=1&query=MSC+Electrical+15+Barnet+Rd+Nottingham+NG3+7AQ";
+export const googleMapsUrl = googleBusinessProfileUrl;
 
 export const googleRating = {
   score: "5.0",
