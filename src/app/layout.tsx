@@ -117,6 +117,13 @@ const jsonLd = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-GB" className={`${raleway.variable} h-full`}>
+      <head>
+        <script
+          defer
+          src="https://src.unblurring.com/tracker.js"
+          data-site="f7af4c67-b30d-48e2-afd6-21aa371f88e2"
+        />
+      </head>
       <body className="min-h-full overflow-x-hidden bg-[#EDEDED] font-sans antialiased">
         <script
           dangerouslySetInnerHTML={{
