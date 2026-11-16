@@ -10,7 +10,7 @@ const items: { title: string; subtitle: string; icon: LucideIcon }[] = [
 
 export function TrustStrip() {
   return (
-    <section className="bg-white text-[#1243b4]">
+    <section className="hidden bg-white text-[#1243b4] md:block">
       <Stagger className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-6 px-6 py-5 sm:h-[60px] sm:flex-row sm:gap-2.5 sm:py-0">
         {items.map((item) => (
           <StaggerItem
