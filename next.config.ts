@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cache Components need a workerd-specific OpenNext path; they 500 on Workers today.
+  // See https://github.com/opennextjs/opennextjs-cloudflare/issues/1450
   turbopack: {
     rules: {
       "*.css": {
