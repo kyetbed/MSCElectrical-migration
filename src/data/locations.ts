@@ -1,0 +1,52 @@
+/** Towns and suburbs within ~8 miles of Nottingham city centre (52.9548, -1.1581). */
+export const locations = [
+  { name: "Arnold", slug: "arnold" },
+  { name: "Aspley", slug: "aspley" },
+  { name: "Attenborough", slug: "attenborough" },
+  { name: "Awsworth", slug: "awsworth" },
+  { name: "Basford", slug: "basford" },
+  { name: "Beeston", slug: "beeston" },
+  { name: "Bestwood Village", slug: "bestwood-village" },
+  { name: "Bilborough", slug: "bilborough" },
+  { name: "Bramcote", slug: "bramcote" },
+  { name: "Bulwell", slug: "bulwell" },
+  { name: "Burton Joyce", slug: "burton-joyce" },
+  { name: "Carlton", slug: "carlton" },
+  { name: "Chilwell", slug: "chilwell" },
+  { name: "Clifton", slug: "clifton" },
+  { name: "Colwick", slug: "colwick" },
+  { name: "Cotgrave", slug: "cotgrave" },
+  { name: "Eastwood", slug: "eastwood" },
+  { name: "Gedling", slug: "gedling" },
+  { name: "Gotham", slug: "gotham" },
+  { name: "Hucknall", slug: "hucknall" },
+  { name: "Ilkeston", slug: "ilkeston" },
+  { name: "Keyworth", slug: "keyworth" },
+  { name: "Kimberley", slug: "kimberley" },
+  { name: "Lambley", slug: "lambley" },
+  { name: "Lenton", slug: "lenton" },
+  { name: "Linby", slug: "linby" },
+  { name: "Long Eaton", slug: "long-eaton" },
+  { name: "Mapperley", slug: "mapperley" },
+  { name: "Nuthall", slug: "nuthall" },
+  { name: "Radcliffe on Trent", slug: "radcliffe-on-trent" },
+  { name: "Ruddington", slug: "ruddington" },
+  { name: "Sandiacre", slug: "sandiacre" },
+  { name: "Sherwood", slug: "sherwood" },
+  { name: "Sneinton", slug: "sneinton" },
+  { name: "Stanton by Dale", slug: "stanton-by-dale" },
+  { name: "Stapleford", slug: "stapleford" },
+  { name: "Strelley", slug: "strelley" },
+  { name: "Toton", slug: "toton" },
+  { name: "Trowell", slug: "trowell" },
+  { name: "West Bridgford", slug: "west-bridgford" },
+  { name: "West Hallam", slug: "west-hallam" },
+  { name: "Wilford", slug: "wilford" },
+  { name: "Wollaton", slug: "wollaton" },
+] as const;
+
+export type LocationSlug = (typeof locations)[number]["slug"];
+
+export function getLocationBySlug(slug: string) {
+  return locations.find((location) => location.slug === slug);
+}
