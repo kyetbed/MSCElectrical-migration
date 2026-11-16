@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Mail, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { HeroReveal, Reveal } from "@/components/motion/reveal";
 import { Footer } from "@/components/footer";
 import { SiteNav } from "@/components/site-nav";
 import { YetiQuoteForm } from "@/components/yeti-quote-form";
+import { whatsappChatUrl } from "@/data/nap";
 import { belowHeaderPtClass, belowHeaderTopClass } from "@/lib/layout";
 
 const description =
@@ -113,6 +114,15 @@ export default function ContactPage() {
             >
               <Mail className="size-5 shrink-0" aria-hidden />
               info@mscelectrical.co.uk
+            </a>
+            <a
+              href={whatsappChatUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-3 text-base"
+            >
+              <MessageCircle className="size-5 shrink-0" aria-hidden />
+              Chat with us on WhatsApp
             </a>
           </div>
         </Reveal>
