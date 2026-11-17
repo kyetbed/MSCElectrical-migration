@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Footer } from "@/components/footer";
-import { Reveal } from "@/components/motion/reveal";
 import { SiteNav } from "@/components/site-nav";
 import { TestimonialsList } from "@/components/testimonials-list";
 import { belowHeaderPtInnerClass } from "@/lib/layout";
@@ -75,7 +74,7 @@ export default function TestimonialsPage() {
       />
       <SiteNav />
       <section className={`px-[5%] pb-10 ${belowHeaderPtInnerClass}`}>
-        <Reveal className="mx-auto max-w-6xl" fadeOnly eager>
+        <div className="mx-auto max-w-6xl">
           <p className="text-lg font-bold text-[#1243B4]">Testimonials</p>
           <h1 className="mt-2 text-[28px] leading-tight font-bold text-[#1243B4] sm:text-[35px]">
             What Our Customers Say
@@ -170,7 +169,7 @@ export default function TestimonialsPage() {
               View on TrustATrader
             </a>
           </div>
-        </Reveal>
+        </div>
       </section>
       <Footer showQuote />
     </main>
