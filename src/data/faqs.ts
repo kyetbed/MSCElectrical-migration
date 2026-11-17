@@ -81,7 +81,7 @@ export const faqSections: Record<FaqSectionKey, FaqItem[]> = {
     {
       question: "Do you charge extra for travel to my area?",
       answer:
-        "We serve Nottingham and nearby towns within our usual working radius. Travel is included in quotations for standard jobs unless access or parking needs special arrangement, which we will explain upfront.",
+        "We serve Nottingham and towns within roughly a 20-mile radius (as far as Newark). Travel is included in quotations for standard jobs unless access or parking needs special arrangement, which we will explain upfront.",
     },
     {
       question: "How quickly can you attend?",

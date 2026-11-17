@@ -9,11 +9,11 @@ import {
   innerWhiteCardClass,
 } from "@/components/inner-page";
 import { SiteNav } from "@/components/site-nav";
+import { serviceRadiusMiles } from "@/data/coverage";
 import { locations } from "@/data/locations";
 import { siteUrl } from "@/data/nap";
 
-const description =
-  "Areas covered by MSC Electrical — domestic, testing, and maintenance electricians serving Nottingham and towns within 8 miles of the city.";
+const description = `Areas covered by MSC Electrical — domestic, testing, and maintenance electricians serving Nottingham and towns within ${serviceRadiusMiles} miles of the city, including Newark.`;
 
 export const metadata: Metadata = {
   title: "Areas We Cover",
@@ -61,7 +61,8 @@ export default function AreasWeCoverPage() {
           <h1 className={`mt-2 ${innerPageTitleClass}`}>Nottingham &amp; nearby towns</h1>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#111]">
             MSC Electrical is based in Nottingham and regularly works in the towns and suburbs below
-            — roughly within eight miles of the city centre. Select your area to see domestic,
+            — roughly within {serviceRadiusMiles} miles of the city centre (as far as Newark).
+            Select your area to see domestic,
             testing, and maintenance services where you live.
           </p>
           <div className="mt-10 grid gap-8 md:grid-cols-3">

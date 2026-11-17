@@ -1,3 +1,6 @@
+import { serviceRadiusMiles } from "@/data/coverage";
+import { business } from "@/data/nap";
+
 export type ChatLink = {
   href: string;
   label: string;
@@ -20,8 +23,7 @@ export type ChatNode = {
 export const chatNodes: Record<string, ChatNode> = {
   start: {
     id: "start",
-    message:
-      "Hi — I'm the MSC Electrical assistant. We're NAPIT-approved electricians in Nottingham and cover an 8-mile radius around the city. How can I help today?",
+    message: `Hi — I'm the MSC Electrical assistant. We're NAPIT-approved electricians in Nottingham and cover a ${serviceRadiusMiles}-mile radius (as far as Newark). Call ${business.phoneDisplay}, email ${business.email}, or use the options below. How can I help today?`,
     options: [
       { id: "quote", label: "Request a free quote", next: "quote" },
       { id: "services", label: "What services do you offer?", next: "services" },
@@ -31,8 +33,7 @@ export const chatNodes: Record<string, ChatNode> = {
   },
   quote: {
     id: "quote",
-    message:
-      "We offer free, no-obligation quotations. The quickest way is our contact form — we usually reply within 1–2 working days. You can also message us on WhatsApp with photos or details of the job.",
+    message: `We offer free, no-obligation quotations. Use our contact form, email ${business.email}, or WhatsApp us with photos or job details — we usually reply within 1–2 working days.`,
     link: { href: "/contact", label: "Open contact form" },
     whatsappHint: "I'd like a free quote for an electrical job.",
     options: [
@@ -112,8 +113,7 @@ export const chatNodes: Record<string, ChatNode> = {
   },
   areas: {
     id: "areas",
-    message:
-      "We're based in Nottingham and work within an 8-mile radius, including surrounding towns across Nottinghamshire. See our full coverage list online.",
+    message: `We're based in Nottingham and work within a ${serviceRadiusMiles}-mile radius — as far as Newark and surrounding towns across Nottinghamshire. See our full coverage list online.`,
     link: { href: "/areas-we-cover", label: "Areas we cover" },
     options: [
       { id: "quote", label: "Request a quote", next: "quote" },
@@ -122,8 +122,7 @@ export const chatNodes: Record<string, ChatNode> = {
   },
   human: {
     id: "human",
-    message:
-      "Tap below to open WhatsApp and chat with our team on 0115 8700442, or call us if your enquiry is urgent.",
+    message: `Tap below for WhatsApp, call ${business.phoneDisplay} if it's urgent, or email ${business.email} — we aim to reply within 1–2 working days.`,
     whatsappHint: "Hello, I'd like to speak to someone at MSC Electrical about an electrical job.",
     options: [{ id: "back", label: "Main menu", next: "start" }],
   },
@@ -149,5 +148,4 @@ export function routeFreeText(text: string): string | null {
   return null;
 }
 
-export const freeTextFallback =
-  "Thanks for your message. Pick an option below, or continue on WhatsApp and our team will reply as soon as they can.";
+export const freeTextFallback = `Thanks for your message. Pick an option below, continue on WhatsApp, or email ${business.email} — our team will reply as soon as they can.`;
