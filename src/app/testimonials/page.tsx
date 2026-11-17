@@ -75,7 +75,7 @@ export default function TestimonialsPage() {
       />
       <SiteNav />
       <section className={`px-[5%] pb-10 ${belowHeaderPtInnerClass}`}>
-        <Reveal className="mx-auto max-w-6xl">
+        <Reveal className="mx-auto max-w-6xl" fadeOnly eager>
           <p className="text-lg font-bold text-[#1243B4]">Testimonials</p>
           <h1 className="mt-2 text-[28px] leading-tight font-bold text-[#1243B4] sm:text-[35px]">
             What Our Customers Say

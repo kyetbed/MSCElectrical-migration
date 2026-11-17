@@ -14,10 +14,19 @@ const slide = { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const };
 export function Reviews() {
   const [index, setIndex] = useState(0);
   const [step, setStep] = useState(0);
-  const [perView, setPerView] = useState(visibleCount);
+  const [perView, setPerView] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   const maxIndex = Math.max(reviews.length - perView, 0);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const syncMobile = () => setIsMobile(mq.matches);
+    syncMobile();
+    mq.addEventListener("change", syncMobile);
+    return () => mq.removeEventListener("change", syncMobile);
+  }, []);
 
   useLayoutEffect(() => {
     const node = viewportRef.current;
@@ -59,14 +68,18 @@ export function Reviews() {
   }
 
   return (
-    <section id="testimonials" aria-label="Customer reviews" className="px-[5%] pb-10">
-      <Reveal>
-      <div ref={viewportRef} className="@container overflow-hidden">
+    <section
+      id="testimonials"
+      aria-label="Customer reviews"
+      className="overflow-x-hidden px-[5%] pb-10"
+    >
+      <Reveal fadeOnly eager>
+      <div ref={viewportRef} className="@container min-h-[12rem] overflow-hidden sm:min-h-0">
         <motion.div
-          className="flex cursor-grab touch-pan-y active:cursor-grabbing"
-          style={{ gap }}
+          className={`flex ${isMobile ? "" : "cursor-grab touch-pan-y active:cursor-grabbing"}`}
+          style={{ gap, touchAction: isMobile ? "pan-y" : "pan-y pinch-zoom" }}
           animate={controls}
-          drag="x"
+          drag={isMobile || !step ? false : "x"}
           dragConstraints={{ left: -maxIndex * step, right: 0 }}
           dragElastic={0.12}
           dragMomentum={false}

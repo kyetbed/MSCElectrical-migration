@@ -3,22 +3,34 @@
 import type { ReactNode } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 
-import { motionEase, motionViewport } from "@/lib/motion";
+import { motionEase, motionViewport, motionViewportImmediate } from "@/lib/motion";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
+  /** Fade only — no vertical shift (better for carousels / touch scroll). */
+  fadeOnly?: boolean;
+  eager?: boolean;
 } & Pick<HTMLMotionProps<"div">, "id" | "aria-label" | "aria-labelledby">;
 
-export function Reveal({ children, className, delay = 0, y = 18, ...rest }: RevealProps) {
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  y = 18,
+  fadeOnly = false,
+  eager = false,
+  ...rest
+}: RevealProps) {
+  const offset = fadeOnly ? 0 : y;
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 0, y: offset }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={motionViewport}
+      viewport={eager ? motionViewportImmediate : motionViewport}
       transition={{ duration: 0.5, ease: motionEase, delay }}
       {...rest}
     >
