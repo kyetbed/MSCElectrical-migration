@@ -4,7 +4,7 @@ import { Raleway } from "next/font/google";
 import "@/app/globals.css";
 import { WhatsAppChat } from "@/components/whatsapp-chat";
 import { locations } from "@/data/locations";
-import { business, profileLinks, siteUrl } from "@/data/nap";
+import { business, googleBusinessProfileUrl, profileLinks, siteUrl } from "@/data/nap";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -115,7 +115,7 @@ const jsonLd = {
     worstRating: "1",
   },
   sameAs: [
-    profileLinks.google,
+    googleBusinessProfileUrl,
     profileLinks.trustATrader,
     profileLinks.facebook,
     profileLinks.instagram,

@@ -6,7 +6,7 @@ import { belowHeaderPtClass } from "@/lib/layout";
 export function Hero() {
   return (
     <section
-      className={`relative flex h-[90vh] items-center justify-center overflow-hidden px-6 pb-12 ${belowHeaderPtClass}`}
+      className={`relative flex h-[72vh] items-center justify-center overflow-hidden px-6 pb-8 md:h-[90vh] md:pb-12 ${belowHeaderPtClass}`}
     >
       <Image
         src="/images/hero.jpg"

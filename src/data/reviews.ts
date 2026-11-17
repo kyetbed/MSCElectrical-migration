@@ -1,4 +1,4 @@
-import { googleBusinessProfileUrl, profileLinks } from "@/data/nap";
+import { profileLinks } from "@/data/nap";
 
 export const trustATraderUrl = profileLinks.trustATrader;
 
@@ -7,12 +7,12 @@ export const trustATraderRating = {
   count: 88,
 };
 
-export const googleMapsUrl = googleBusinessProfileUrl;
-
 export const googleRating = {
   score: "5.0",
   count: 166,
-  href: googleMapsUrl,
+  /** On-site reviews; outbound Google link is leave-review only. */
+  href: "/testimonials#google-reviews",
+  leaveReviewHref: "/leave-a-review",
 } as const;
 
 /** Shown in the top site banner (marketing figures). */

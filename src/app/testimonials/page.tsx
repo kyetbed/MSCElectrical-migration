@@ -88,12 +88,7 @@ export default function TestimonialsPage() {
               >
                 Google reviews
               </h2>
-              <a
-                href={googleRating.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-3 text-base font-medium text-[#1243B4] sm:text-lg"
-              >
+              <div className="mt-3 inline-flex items-center gap-3 text-base font-medium text-[#1243B4] sm:text-lg">
                 <Image
                   src="/images/google-g.svg"
                   alt=""
@@ -102,18 +97,10 @@ export default function TestimonialsPage() {
                   className="size-12"
                 />
                 Rated {googleRating.score}/5 based on {googleRating.count} reviews on Google
-              </a>
+              </div>
               <p className="mt-2 max-w-2xl text-sm text-[#555]">
-                Showing recent reviews from our Google Business profile.{" "}
-                <a
-                  href={googleRating.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-[#1243B4] underline underline-offset-2"
-                >
-                  Read all {googleRating.count} reviews on Google
-                </a>
-                .
+                Recent Google reviews are shown below. Leave us a review on Google when you&apos;re
+                ready — it only takes a minute.
               </p>
               <TestimonialsList reviews={googleReviews} />
             </section>
@@ -153,12 +140,12 @@ export default function TestimonialsPage() {
               Request a Quote
             </Link>
             <a
-              href={googleRating.href}
+              href={googleRating.leaveReviewHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex rounded-full border border-[#1243B4] px-6 py-3 text-base font-medium text-[#1243B4]"
             >
-              View on Google
+              Leave a Google review
             </a>
             <a
               href={trustATraderUrl}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 
+import { GoogleReviewsPopover } from "@/components/google-reviews-popover";
 import { Reveal } from "@/components/motion/reveal";
 
 const services = [
@@ -11,9 +12,12 @@ const services = [
 
 export function WhoWeAre() {
   return (
-    <section className="px-[5%] pb-10">
+    <section className="scroll-mt-20 px-[5%] pb-10 max-md:-mt-1">
       <Reveal className="grid bg-white md:grid-cols-[3fr_2fr]">
-        <div className="px-5 py-8 sm:px-12 sm:py-12">
+        <div className="col-span-full px-5 pt-5 sm:px-12 sm:pt-8 md:hidden">
+          <GoogleReviewsPopover />
+        </div>
+        <div className="px-5 py-8 sm:px-12 sm:py-12 max-md:pt-4">
           <p className="text-lg font-bold text-[#1243B4]/60 sm:text-xl">MSC Electrical</p>
           <h2 className="mt-2 text-[28px] leading-tight font-bold text-[#1243B4] sm:text-[35px]">
             Who Are We?

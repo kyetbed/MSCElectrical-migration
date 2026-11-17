@@ -1,11 +1,19 @@
 export const siteUrl = "https://www.mscelectrical.co.uk" as const;
 
-/** Public Google Business Profile (stable place_id link). */
-export const googleBusinessProfileUrl =
-  "https://www.google.com/maps/search/?api=1&query_place_id=ChIJQYasnZXGeUgRiwy_xQ7D9JE";
+/** MSC Electrical Google Business Profile — 15 Barnet Road, Nottingham NG3 7AQ. */
+export const googlePlaceId = "ChIJQYasnZXGeUgRiwy_xQ7D9JE";
+
+/** Opens the business listing (reviews visible on the profile). */
+export const googleBusinessProfileUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("MSC Electrical")}&query_place_id=${googlePlaceId}`;
+
+/** Deep link to read reviews on Google Maps. */
+export const googleReviewsUrl = googleBusinessProfileUrl;
+
+/** Opens the official “Write a review” flow for this listing. */
+export const googleLeaveReviewUrl = `https://search.google.com/local/writereview?placeid=${googlePlaceId}`;
 
 export const profileLinks = {
-  google: googleBusinessProfileUrl,
+  google: `${siteUrl}/testimonials#google-reviews`,
   trustATrader:
     "https://www.trustatrader.com/traders/msc-electrical-electricians-nottingham",
   facebook: "https://www.facebook.com/MSCElectricalUK",
